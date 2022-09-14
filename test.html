@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Test Suite</title>
+<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.19.1.css">
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="https://code.jquery.com/qunit/qunit-2.19.1.js"></script>
+  <script src="controller.js"></script>
+
+</body>
+
+<script>
+    
+    // dummy model
+    let chosenBar;
+    let numbers;
+    let inputValue;
+
+    // dummy show
+    function show(){};
+
+     QUnit.test('deselect bar', function(assert) {
+       
+        // chosenBar = 3;
+        selectBar(3);
+        selectBar(3);
+        let actual = chosenBar;
+        let expected = 'ingen';
+        assert.equal(actual, expected)
+    });
+    
+    QUnit.test('select bar', function(assert) {
+        // oppsett av variabler 
+        chosenBar = 'ingen';
+        // hva som skjer 
+        selectBar(3);
+
+        // selve testingen
+        let actual = chosenBar;
+        let expected = '3';
+        assert.equal(actual, expected)
+    });
+    
+    QUnit.test('switch selection of bar', function(assert) {
+       selectBar(3);
+       selectBar(4);
+       let actual = chosenBar;
+       let expected = 4;
+       assert.equal(actual, expected)
+   });
+
+    QUnit.test('remove bar', function(assert) {
+        numbers = [1,2,3,4,5]; 
+        selectBar(3);
+        
+        removeBar();
+     
+        let actual = numbers;
+        let expected = [1,2,4,5];
+        assert.deepEqual(actual, expected)  // deepEqual ved bruk av objekter og lister
+    });
+
+    // QUnit.test('edit bar', function(assert){
+    //    selectBar(5);
+    //    inputValue = 4;
+    //    changeBar();  
+
+    //    let actual = inputValue;
+    //    let expected = 4;
+    //    assert.equal(actual, expected);
+    // });
+
+    QUnit.test('edit bar', function(assert){
+        numbers = [1,2,3,4,5]
+        selectBar(3);
+        inputValue = 9;
+        changeBar();  
+
+        let actual = numbers;
+        let expected = [1,2,9,4,5];
+        assert.deepEqual(actual, expected);
+    });
+
+    QUnit.test('erects a new bar', function(assert){
+        numbers = [1,2,3,4,5]
+        inputValue = 1;
+        selectBar(2)
+        erectBar()
+        // clearSelection()
+        let actual = numbers;
+        let expected = [1,2,3,4,5,1]
+        assert.deepEqual(actual, expected)    
+    });
+</script>
+
+
+<!-- //     function add(a, b) {
+//       return a + b;
+//     }
+  
+    // QUnit.module('add', function() {
+    //   QUnit.test('two numbers', function(assert) {
+    //     assert.equal(add(1, 2), 3);
+    //   });
+    // });
+
+// QUnit.test('add person', function(assert) {
+//     newPerson = 'therese';
+//     persons = ['terje']
+//     addNewPerson();
+//     let actual = persons;
+//     let expected = ['terje','therese'];
+//     assert.deepEqual(actual, expected);
+//   }); -->
+
